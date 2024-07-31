@@ -6,20 +6,14 @@ import { createContext, useContext, useState } from 'react';
 const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
-  const [state, setState] = useState({
-    user: null,
-    theme: 'light',
-  });
   const [loadingCompleted,setLoadingCompleted] = useState(false);
-
-
-  const updateUser = (user) => setState((prevState) => ({ ...prevState, user }));
-  const toggleTheme = () => setState((prevState) => ({ ...prevState, theme: prevState.theme === 'light' ? 'dark' : 'light' }));
+  const [stopLoadingAssets,setStopLoadingAssets] = useState(false);
 
   return (
-    <GlobalContext.Provider value={{ state, updateUser, toggleTheme,
-      loadingCompleted,
-      setLoadingCompleted, }}>
+    <GlobalContext.Provider value={{
+      loadingCompleted,setLoadingCompleted,
+      stopLoadingAssets,setStopLoadingAssets
+    }}>
       {children}
     </GlobalContext.Provider>
   );
