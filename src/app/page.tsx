@@ -1,113 +1,77 @@
+"use client";
+import TestContext from "@/components/Test/TestContext";
+import { useGlobalContext } from "@/context/GlobalContext";
 import Image from "next/image";
 
+import { useState } from "react";
+import HomePagePreloader from "@/components/PreLoader/HomePagePeLoader";
+import CircleProgressAssets from "@/components/PreLoader/CircleProgressAssets";
+import Link from "next/link";
 export default function Home() {
+  const [assets, setAssets] = useState({ images: [], videos: [] });
+  const [loaded, setLoaded] = useState(false);
+  const site = useGlobalContext();
+  let images: any[] = [
+    "https://avatars.mds.yandex.net/i?id=f63196398fdc75a1fbea76ec71c02626-5887538-images-thumbs&n=13",
+    "https://avatars.mds.yandex.net/i?id=2c03ab69c6198bee234eef34b3ee3a0ac9d6c537-7545494-images-thumbs&n=13",
+    "https://avatars.mds.yandex.net/i?id=0106ffc7882554b69b9ff9c29a49e69fedb367e7-4876801-images-thumbs&n=13",
+    "https://avatars.mds.yandex.net/i?id=f6bcbc187e9fea3adc7fc1b96c0c97df38963919-9589172-images-thumbs&n=13",
+    "https://avatars.mds.yandex.net/i?id=841dbf4456552d81839bcf901f0234c95638b263-5390142-images-thumbs&n=13",
+    "https://avatars.mds.yandex.net/i?id=a7b45567188e091b7b98b5d44fd7385917f2880f-12661511-images-thumbs&n=13",
+    "https://avatars.mds.yandex.net/i?id=e17ea0f4b302a611f2060f509216cce792067c64-4034676-images-thumbs&n=13",
+    "https://avatars.mds.yandex.net/i?id=11c66f9b96f9c12ecd54b39a2f700bef429e1eaa-4366154-images-thumbs&n=13",
+    "https://avatars.mds.yandex.net/i?id=2a00000190ee9998a2deb95ad0a42f912013-1576131-fast-images&n=13",
+    "https://avatars.mds.yandex.net/i?id=b9d20a85233bd38d3a42943fdf201afe4185e4e3-12155387-images-thumbs&n=13",
+    "https://avatars.mds.yandex.net/i?id=ad1f7079ceb822cd6bd45375e33579e4a8db3b68-10415001-images-thumbs&n=13",
+    "https://avatars.mds.yandex.net/i?id=d201b0236c11066b3ca2883fe57e2f3fec779fe1-4492191-images-thumbs&n=13",
+    "https://avatars.mds.yandex.net/i?id=e6bb7c5061e8577f8412721a5e6315c94fb464cc-12487149-images-thumbs&n=13",
+    "https://avatars.mds.yandex.net/i?id=0885f90f23f14cb11e4d886137a5b3add209503b-4377598-images-thumbs&n=13",
+    "https://avatars.mds.yandex.net/get-yabs_performance/7575512/hat7b3eba43747f3db87f1a189c3915a725/huge",
+    "https://avatars.mds.yandex.net/i?id=31357e34963c65f1334944ae75f2fa60ec5f3f587de4fdc6-5858181-images-thumbs&n=13",
+    "https://avatars.mds.yandex.net/i?id=4c1ff39feb1a2d342f220f47a08d5e5be7fc3cf6-4353628-images-thumbs&n=13",
+  ];
+  let videos: any[] = [];
+
+  const completedLoading = (assets: any) => {
+    setAssets({ ...assets });
+    setLoaded(true);
+    // site.setLoadingCompleted(true);
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+    <>
+      {
+        <>
+          <HomePagePreloader loading={!loaded} custome={true}>
+            <CircleProgressAssets
+              images={images}
+              completed={completedLoading}
+              videos={videos}
             />
-          </a>
-        </div>
-      </div>
+          </HomePagePreloader>
+        </>
+      }
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      {(loaded == true || site.loadingCompleted == true) && (
+        <>
+          <div className="h-screen  bg-slate-500 text-center  ">
+            <section>
+            <h1 className="pt-10 pb-5 border-b text-3xl">Home Page Loaded</h1>
+            <div>
+              <Link className="text-blue-300" href="/mypage">mypage</Link>
+            </div>
+            </section>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+            <div className="grid gap-y-5 justify-center items-center pt-3 grid-cols-3">
+                {
+                    images.map(image=>{
+                        return <img key={image} src={image} alt={image} width={200} />
+                    })
+                }
+            </div>
+          </div>
+        </>
+      )}
+    </>
   );
 }
